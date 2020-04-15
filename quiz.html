@@ -4,18 +4,21 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+      <!--jQuery-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
     <!--Bootstrap CSS-->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
 
     <!--Supplemenatal CSS-->
     <link rel="stylesheet" href="./assets/style.css">
 
-    <title>Quiz</title>
+    <title>Allman Brothers Band Quiz</title>
 </head>
 <body>
     <!--the timer will be diplayed within the header of the document-->
-    <nav class="navbar navbar-light">
-        <span class="navbar-brand mb-0 h1">Quiz</span>
+    <nav class="navbar navbar-light container">
+        <span class="navbar-brand mb-0 h1">The Ultimate Allman Brothers Band Quiz</span>
         <div id="timer">Time Left: </div>
       </nav>
 
@@ -23,8 +26,8 @@
     <main class="container">
         <!--the main dialog text will be displayed in this section-->
         <section class="row">
-            <article class="col-md-12">
-                <h2 id="text"></h2>
+            <article class="col-md-12 ">
+                <div class="main-text" id="text"></div>
             </article>
         </section>
         
@@ -45,11 +48,11 @@
 
         <section class="row">
             <article class="col-md-12">
-                <button type="button" class="btn btn-primary" id="btn">Begin Quiz</button>
+                <div id="btn"></div>
             </article>
         </section>
 
     </main>
-    <script src="./assets/script.js"></script>
+    <script src="./assets/quiz.js"></script>
 </body>
 </html>
