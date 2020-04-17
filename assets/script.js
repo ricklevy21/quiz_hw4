@@ -30,7 +30,7 @@ var startQuiz = function (){
     //hide the "Begin Quiz" button
     $("#btn").hide();
     //show the "Next Question" button
-    $("#nxtBtn").show();
+    nxtBtn.show();
     //start running the timer
     setTimer();
     //display the first question
@@ -41,6 +41,10 @@ var startQuiz = function (){
 
 //function that renders the questions and the multiple choice options to the page=============> WORKING
 var displayQuestion = function() {
+    nxtBtn.text("Next Question");
+    nxtBtn.attr("class", "btn btn-dark");
+    $("#nxtBtn").append(nxtBtn);
+    disableNxtBtn()
     //display the question text
     $("#question").html("<h1>"+questionsArr[questionCounter].questionText+"</h1>")
     //display the multiple choice answers
@@ -173,6 +177,12 @@ var enableBtns = function() {
 //function that disables the next question button
 var disableNxtBtn = function() {
     nxtBtn.prop("disabled",true);
+}
+
+//function that enables the next question button
+var enableNxtBtn = function() {
+    nxtBtn.prop("disabled",false);
+}
 
 
 
@@ -193,7 +203,7 @@ var endQuiz = function() {
     }
     score = score + counter;
     //hide all current elements
-    $("#nxtBtn").hide();
+    nxtBtn.hide();
     $("#text").hide();
     $("#score").hide();
     $("#timer").hide();
@@ -255,8 +265,7 @@ var saveScore = function(){
 //variable for which question is being displayed
 var questionCounter = 0;
 
-//variabe for the amount of time the quiz starts out with
-var counter = 60;
+
 
 //variable for the user's score
 var score = 0;
@@ -317,12 +326,12 @@ var questionsArr = [
     }
 ]
 
+//variabe for the amount of time the quiz starts out with. made this way so you get 0 if all answers are wrong
+var counter = questionsArr.length *10;
 
 //STARTING PAGE CONTENT
 //======================================================================================================================================================================
-//hide the end page text
-$("#end").hide();
-$("#nxtBtn").hide();
+
 
 
 var btnA = $("<button>");
@@ -337,14 +346,16 @@ var lineBreak = $("<br>")
 var endInput = $("<input>");
 var submitScore = $("<button>");
 
-
+//hide the end page text
+$("#end").hide();
+nxtBtn.hide();
 
 //EVENT LISTENERS
 //======================================================================================================================================================================
 //call startQuiz when "Begin Quiz" button is clicked
 $("#btn").on("click", startQuiz)
 //call the nextQuestion function when the "Next Question" button is clicked
-$("#nxtBtn").on("click", nextQuestion)
+nxtBtn.on("click", nextQuestion)
 //submit user's final score to local storage
 submitScore.on("click", saveScore)
 
@@ -353,6 +364,7 @@ $(btnA).on("click", function(event){
     console.log("option A was clicked")
     console.log(event.target.value)
     console.log(questionsArr[questionCounter].correctChoice)
+    enableNxtBtn();
     checkA();
 });
 
@@ -361,6 +373,7 @@ $(btnB).on("click", function(event){
     console.log("option B was clicked")
     console.log(event.target.value)
     console.log(questionsArr[questionCounter].correctChoice)
+    enableNxtBtn();
     checkB();
 })
 
@@ -369,6 +382,7 @@ $(btnC).on("click", function(event){
     console.log("option C was clicked")
     console.log(event.target.value)
     console.log(questionsArr[questionCounter].correctChoice)
+    enableNxtBtn();
     checkC();
 })
 
@@ -377,6 +391,7 @@ $(btnD).on("click", function(event){
     console.log("option D was clicked")
     console.log(event.target.value)
     console.log(questionsArr[questionCounter].correctChoice)
+    enableNxtBtn();
     checkD();
 })
 
