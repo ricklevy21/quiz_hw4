@@ -40,16 +40,20 @@ var startQuiz = function (){
 
 //function that renders the questions and the multiple choice options to the page
 var displayQuestion = function() {
-    console.log(questionsArr[questionCounter].questionText)
+    //display the question text
     $("#question").html("<h1>"+questionsArr[questionCounter].questionText+"</h1>")
-
-
-}
+    //display the multiple choice answers
+    $("#optionA").html("<button>"+questionsArr[questionCounter].choices.a+"</button")
+    $("#optionB").html("<button>"+questionsArr[questionCounter].choices.b+"</button")
+    $("#optionC").html("<button>"+questionsArr[questionCounter].choices.c+"</button")
+    $("#optionD").html("<button>"+questionsArr[questionCounter].choices.d+"</button")
+    }
 
 //function that changes the settings for the next question to be presented
 var nextQuestion = function(){
+    //go to the next question in the array
     questionCounter++;
-    displayQuestion()    
+    displayQuestion()
 }
 
 //function to figureout which answer was selected
