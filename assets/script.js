@@ -84,6 +84,7 @@ var corrIncorr = function() {
         console.log("Incorrect");
         counter = counter -10;
     }
+    //change button colors to reveal correct/incorrect answers
     btnColor();
 }
 
@@ -161,17 +162,38 @@ var enableBtns = function() {
     btnD.prop("disabled",false);
 }
 
-//function that ends the game and shows your score. called when all 5 questions are answered or time left = 0.==================================> TO DO
-//allows user to enter 3 initials and save score to local storage...high scores are on another html page
-var endQuiz = function() {
-    console.log("you ran out of time")
-}
+
 
 //function that displays the score as the quiz is ongoing
 var ongoingScore = function() {
     $("#score").html("<h4>Current Score "+score+"</h4>")
 };
 
+//function that ends the game and shows your score. called when all 5 questions are answered or time left = 0.==================================> TO DO
+//allows user to enter 3 initials and save score to local storage...high scores are on another html page
+var endQuiz = function() {
+    //calculate final score
+    score = score + counter;
+    //hide all current elements
+    $("#nxtBtn").hide();
+    $("#text").hide();
+    $("#score").hide();
+    $("#timer").hide();
+    $("#question").hide();
+    $("#optionA").hide();
+    $("#optionB").hide();
+    $("#optionC").hide();
+    $("#optionD").hide();
+    //show information in end of quiz element
+    $("#end").show();
+    $("#end").append("<h3> FINAL SCORE: "+score+"</h3>");
+    endLabel.append("<label>ENTER YOUR INITIALS: </label>")
+    endLabel.attr("for", "initials")
+    endInput.append("<input/>")
+    endInput.attr("id", "initials")
+    endInput.attr("type", "text")
+    endInput.attr("max", "3")//==========================================NOT WORKING
+}
 //variables
 //========================================================================================================================================================================
 
@@ -250,6 +272,9 @@ var btnA = $("<button>");
 var btnB = $("<button>");
 var btnC = $("<button>");
 var btnD = $("<button>");
+
+var endLabel = $("#end");
+var endInput = $("#end");
 
 //EVENT LISTENERS
 //======================================================================================================================================================================
