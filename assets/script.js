@@ -41,40 +41,69 @@ var startQuiz = function (){
 
 //function that renders the questions and the multiple choice options to the page=============> WORKING
 var displayQuestion = function() {
-    nxtBtn.text("Next Question");
-    nxtBtn.attr("class", "btn btn-dark");
-    $("#nxtBtn").append(nxtBtn);
-    disableNxtBtn()
-    //display the question text
-    $("#question").html("<h1>"+questionsArr[questionCounter].questionText+"</h1>")
-    //display the multiple choice answers
-    btnA.text(questionsArr[questionCounter].choices.a);
-    btnA.attr("value", questionsArr[questionCounter].choices.a);
-    btnA.attr("class", "btn btn-primary");
-    $("#optionA").append(btnA);
-    
-    btnB.text(questionsArr[questionCounter].choices.b);
-    btnB.attr("value", questionsArr[questionCounter].choices.b);
-    btnB.attr("class", "btn btn-primary");
-    $("#optionB").append(btnB);
-    
-    btnC.text(questionsArr[questionCounter].choices.c);
-    btnC.attr("value", questionsArr[questionCounter].choices.c);
-    btnC.attr("class", "btn btn-primary");
-    $("#optionC").append(btnC);
-    
-    btnD.text(questionsArr[questionCounter].choices.d);
-    btnD.attr("value", questionsArr[questionCounter].choices.d);
-    btnD.attr("class", "btn btn-primary");
-    $("#optionD").append(btnD);
-    
+    if (questionCounter === questionsArr.length-1){
+        //renders nxtBtn as "Finish Quiz" for the last question
+        nxtBtn.text("Finish Quiz");
+        nxtBtn.attr("class", "btn btn-warning");
+        $("#nxtBtn").append(nxtBtn);
+        disableNxtBtn()
+        //display the question text
+        $("#question").html("<h1>"+questionsArr[questionCounter].questionText+"</h1>")
+        //display the multiple choice answers
+        btnA.text(questionsArr[questionCounter].choices.a);
+        btnA.attr("value", questionsArr[questionCounter].choices.a);
+        btnA.attr("class", "btn btn-primary");
+        $("#optionA").append(btnA);
+        
+        btnB.text(questionsArr[questionCounter].choices.b);
+        btnB.attr("value", questionsArr[questionCounter].choices.b);
+        btnB.attr("class", "btn btn-primary");
+        $("#optionB").append(btnB);
+        
+        btnC.text(questionsArr[questionCounter].choices.c);
+        btnC.attr("value", questionsArr[questionCounter].choices.c);
+        btnC.attr("class", "btn btn-primary");
+        $("#optionC").append(btnC);
+        
+        btnD.text(questionsArr[questionCounter].choices.d);
+        btnD.attr("value", questionsArr[questionCounter].choices.d);
+        btnD.attr("class", "btn btn-primary");
+        $("#optionD").append(btnD);
+    } else {
+        //renders the nxtBtn as "Next Question" for all but the last question
+        nxtBtn.text("Next Question");
+        nxtBtn.attr("class", "btn btn-dark");
+        $("#nxtBtn").append(nxtBtn);
+        disableNxtBtn()
+        //display the question text
+        $("#question").html("<h1>"+questionsArr[questionCounter].questionText+"</h1>")
+        //display the multiple choice answers
+        btnA.text(questionsArr[questionCounter].choices.a);
+        btnA.attr("value", questionsArr[questionCounter].choices.a);
+        btnA.attr("class", "btn btn-primary");
+        $("#optionA").append(btnA);
+        
+        btnB.text(questionsArr[questionCounter].choices.b);
+        btnB.attr("value", questionsArr[questionCounter].choices.b);
+        btnB.attr("class", "btn btn-primary");
+        $("#optionB").append(btnB);
+        
+        btnC.text(questionsArr[questionCounter].choices.c);
+        btnC.attr("value", questionsArr[questionCounter].choices.c);
+        btnC.attr("class", "btn btn-primary");
+        $("#optionC").append(btnC);
+        
+        btnD.text(questionsArr[questionCounter].choices.d);
+        btnD.attr("value", questionsArr[questionCounter].choices.d);
+        btnD.attr("class", "btn btn-primary");
+        $("#optionD").append(btnD);
+    }
 }
 
 //function that changes the settings for the next question to be presented =====================> WORKING
 var nextQuestion = function(){
     //go to the next question in the array
     questionCounter++;
-    console.log(questionCounter)
     //end quiz once last question is submitted
     if (questionCounter === questionsArr.length){
         endQuiz()
@@ -183,8 +212,6 @@ var disableNxtBtn = function() {
 var enableNxtBtn = function() {
     nxtBtn.prop("disabled",false);
 }
-
-
 
 //function that displays the score as the quiz is ongoing
 var ongoingScore = function() {
@@ -402,66 +429,11 @@ $(btnD).on("click", function(event){
 //EXPERIMENTAL LAND
 //=======================================================================================================================================================================
 
-// newScoreToObj();
-// newScoreToArr();
-// getPrevScores();
-// arrStringify();
-// goToStorage();
-
-
-
-
-
-
-
-
-// //function that gets scores from local storage and adds them to highScoresArr
-// var getPrevScores = function(){
-//         //take strings from local storage and make them into and object
-//         var prevScores = JSON.parse(localStorage.getItem("score"));
-//         //add object to array
-//         if (prevScores !== null){
-//             highScoresArr.push(prevScores)
-//         }
-//         console.log(highScoresArr)
-// }
-
-// //function to add latest score to object=============================================>WORKS
-// var newScoreToObj = function() {
-//     //store user's input (initials) into the initials variable
-//     initials = document.getElementById("initials").value
-//     //add score and initials into an object
-//     newScoreObj.score = score;
-//     newScoreObj.initials = initials;
-// }
-
-// //function to add latest score object to highScoresArr=============================================>WORKS
-// var newScoreToArr = function() {
-//     highScoresArr.push(newScoreObj)
-// }
-
-// //function that stringifies each object in highScoresArr and adds it to the array arrForStorage==================================>WORKS
-// var arrStringify = function(){
-//     for (var i = 0; i < highScoresArr.length; i++) {
-//         var scoreObjAsString = JSON.stringify(highScoresArr[i]);
-//         arrForStorage.push(scoreObjAsString)
-//     }
-//     arrForStorage = JSON.stringify(arrForStorage)
-// }
-
-// //function that adds arrForStorage to local storage
-// var goToStorage = function() {
-//     localStorage.setItem("scores", arrForStorage)
-// }
 
 //To Do
 //=======================================================================================================================================================================
 /*
 Make scores.html page and have high scores render to page
 make link to scores.html and place on quiz.html (hide when quiz begins/show when ends)
-disable next question button before answer is selected. once once is selected, enable the button
-change text in next question button on last question to be "Finish Quiz"
-
-
 
 */
