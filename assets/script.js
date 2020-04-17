@@ -1,6 +1,6 @@
 //FUNCTIONS
 //========================================================================================================================================================================
-//function that creates, sets, and starts the timer when called==========>mostly works
+//function that creates, sets, and starts the timer when called==========> WORKING
 var setTimer = function() {
     //uses the wondow set interval method to create an interval
     var interval = setInterval(function() {
@@ -21,7 +21,7 @@ var setTimer = function() {
 
 
 
-//function that begins the quiz. Called once the "Begin Quiz" button is clicked
+//function that begins the quiz. Called once the "Begin Quiz" button is clicked=========> WORKING
 var startQuiz = function (){
     //test if the button worked
     console.log("Start quiz button works")
@@ -35,32 +35,37 @@ var startQuiz = function (){
     setTimer();
     //display the first question
     displayQuestion();
+    //display the user's ongoing score
 }
 
 
-//function that renders the questions and the multiple choice options to the page
+//function that renders the questions and the multiple choice options to the page=============> WORKING
 var displayQuestion = function() {
     //display the question text
     $("#question").html("<h1>"+questionsArr[questionCounter].questionText+"</h1>")
     //display the multiple choice answers
     btnA.text(questionsArr[questionCounter].choices.a);
     btnA.attr("value", questionsArr[questionCounter].choices.a);
+    btnA.attr("class", "btn btn-primary");
     $("#optionA").append(btnA);
 
     btnB.text(questionsArr[questionCounter].choices.b);
     btnB.attr("value", questionsArr[questionCounter].choices.b);
+    btnB.attr("class", "btn btn-primary");
     $("#optionB").append(btnB);
 
     btnC.text(questionsArr[questionCounter].choices.c);
     btnC.attr("value", questionsArr[questionCounter].choices.c);
+    btnC.attr("class", "btn btn-primary");
     $("#optionC").append(btnC);
 
     btnD.text(questionsArr[questionCounter].choices.d);
     btnD.attr("value", questionsArr[questionCounter].choices.d);
+    btnD.attr("class", "btn btn-primary");
     $("#optionD").append(btnD);
     }
 
-//function that changes the settings for the next question to be presented
+//function that changes the settings for the next question to be presented =====================> WORKING
 var nextQuestion = function(){
     //go to the next question in the array
     questionCounter++;
@@ -68,58 +73,79 @@ var nextQuestion = function(){
     enableBtns();
 }
 
-//function to figureout which answer was selected
-var answerClicked = function() {
-    var userAnswer = (this.id)
-    console.log(userAnswer)
-}
-
-
-
-//function that subtracts time from the timer is a question is answered incorrectly
-var subtractTime = function() {
-
-}
-
-
-//functions that check answers
-var checkA = function(){
+//function that evaluates if a user's answer is correct or incorrect====================================>WORKING
+var corrIncorr = function() {
+    //correct answer adds 1 point to the user's score
     if (event.target.value === questionsArr[questionCounter].correctChoice) {
         console.log("Correct");
+        score = score +1
+    //incorrect answer reduces time left by 10 seconds
     } else {
         console.log("Incorrect");
+        counter = counter -10;
     }
+    btnColor();
+}
+
+//function that changes colors of buttons after answer is selected=======================================>WORKING
+var btnColor = function(){
+     if (btnA.val() === questionsArr[questionCounter].correctChoice) {
+        btnA.removeClass("btn btn-primary");
+        btnA.addClass("btn btn-success");
+     } else {
+        btnA.removeClass("btn btn-primary");
+        btnA.addClass("btn btn-danger");
+     }
+     if (btnB.val() === questionsArr[questionCounter].correctChoice) {
+        btnB.removeClass("btn btn-primary");
+        btnB.addClass("btn btn-success");
+     } else {
+        btnB.removeClass("btn btn-primary");
+        btnB.addClass("btn btn-danger");
+     }
+     if (btnC.val() === questionsArr[questionCounter].correctChoice) {
+        btnC.removeClass("btn btn-primary");
+        btnC.addClass("btn btn-success");
+     } else {
+        btnC.removeClass("btn btn-primary");
+        btnC.addClass("btn btn-danger");
+     }
+     if (btnD.val() === questionsArr[questionCounter].correctChoice) {
+        btnD.removeClass("btn btn-primary");
+        btnD.addClass("btn btn-success");
+     } else {
+        btnD.removeClass("btn btn-primary");
+        btnD.addClass("btn btn-danger");
+     }
+}
+
+
+//functions that take action once an answer button is clicked
+var checkA = function(){
+    corrIncorr();
     disableBtns();
+    ongoingScore();
 }
 
 var checkB = function(){
-    if (event.target.value === questionsArr[questionCounter].correctChoice) {
-        console.log("Correct");
-    } else {
-        console.log("Incorrect");
-    }
+    corrIncorr();
     disableBtns();
+    ongoingScore();
 }
 
 var checkC = function(){
-    if (event.target.value === questionsArr[questionCounter].correctChoice) {
-        console.log("Correct");
-    } else {
-        console.log("Incorrect");
-    }
+    corrIncorr();
     disableBtns();
+    ongoingScore();
 }
 
 var checkD = function(){
-    if (event.target.value === questionsArr[questionCounter].correctChoice) {
-        console.log("Correct");
-    } else {
-        console.log("Incorrect");
-    }
+    corrIncorr();
     disableBtns();
+    ongoingScore();
 }
 
-//function that disables answer buttons once an answer has been selected
+//function that disables answer buttons once an answer has been selected==================================> WORKING
 var disableBtns = function() {
     btnA.prop("disabled",true);
     btnB.prop("disabled",true);
@@ -127,7 +153,7 @@ var disableBtns = function() {
     btnD.prop("disabled",true);
 }
 
-//function that enables answer buttons once user goes to next question
+//function that enables answer buttons once user goes to next question==================================> WORKING
 var enableBtns = function() {
     btnA.prop("disabled",false);
     btnB.prop("disabled",false);
@@ -135,10 +161,16 @@ var enableBtns = function() {
     btnD.prop("disabled",false);
 }
 
-//function that ends the game and shows your score. called when all 5 questions are answered or time left = 0.
+//function that ends the game and shows your score. called when all 5 questions are answered or time left = 0.==================================> TO DO
+//allows user to enter 3 initials and save score to local storage...high scores are on another html page
 var endQuiz = function() {
     console.log("you ran out of time")
 }
+
+//function that displays the score as the quiz is ongoing
+var ongoingScore = function() {
+    $("#score").html("<h4>Current Score "+score+"</h4>")
+};
 
 //variables
 //========================================================================================================================================================================
@@ -148,6 +180,9 @@ var questionCounter = 0;
 
 //variabe for the amount of time the quiz starts out with
 var counter = 60;
+
+//variable for the user's score
+var score = 0;
 
 //an array of objects that store question information
 var questionsArr = [
@@ -210,6 +245,7 @@ var questionsArr = [
 $("#end").hide();
 $("#nxtBtn").hide();
 
+
 var btnA = $("<button>");
 var btnB = $("<button>");
 var btnC = $("<button>");
@@ -260,18 +296,3 @@ $(btnD).on("click", function(event){
 
 //EXPERIMENTAL LAND
 //=======================================================================================================================================================================
-
-
-
-
-
-//I DONT THINK THIS WORKS THE WAY I NEED IT TO
-//a way to access the properties from within an object via a for loop
-// for (var i = 0; i < choicesArr.length; i++) {
-//     console.log(choicesArr[i].questionText)
-//     console.log(choicesArr[i].correctChoice)
-//     console.log(choicesArr[i].choice.a)
-//     console.log(choicesArr[i].choice.b)
-//     console.log(choicesArr[i].choice.c)
-//     console.log(choicesArr[i].choice.d)
-// }
