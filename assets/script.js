@@ -65,6 +65,7 @@ var nextQuestion = function(){
     //go to the next question in the array
     questionCounter++;
     displayQuestion()
+    enableBtns();
 }
 
 //function to figureout which answer was selected
@@ -88,6 +89,7 @@ var checkA = function(){
     } else {
         console.log("Incorrect");
     }
+    disableBtns();
 }
 
 var checkB = function(){
@@ -96,6 +98,7 @@ var checkB = function(){
     } else {
         console.log("Incorrect");
     }
+    disableBtns();
 }
 
 var checkC = function(){
@@ -104,6 +107,7 @@ var checkC = function(){
     } else {
         console.log("Incorrect");
     }
+    disableBtns();
 }
 
 var checkD = function(){
@@ -112,6 +116,23 @@ var checkD = function(){
     } else {
         console.log("Incorrect");
     }
+    disableBtns();
+}
+
+//function that disables answer buttons once an answer has been selected
+var disableBtns = function() {
+    btnA.prop("disabled",true);
+    btnB.prop("disabled",true);
+    btnC.prop("disabled",true);
+    btnD.prop("disabled",true);
+}
+
+//function that enables answer buttons once user goes to next question
+var enableBtns = function() {
+    btnA.prop("disabled",false);
+    btnB.prop("disabled",false);
+    btnC.prop("disabled",false);
+    btnD.prop("disabled",false);
 }
 
 //function that ends the game and shows your score. called when all 5 questions are answered or time left = 0.
