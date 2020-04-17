@@ -43,10 +43,21 @@ var displayQuestion = function() {
     //display the question text
     $("#question").html("<h1>"+questionsArr[questionCounter].questionText+"</h1>")
     //display the multiple choice answers
-    $("#optionA").html("<button>"+questionsArr[questionCounter].choices.a+"</button")
-    $("#optionB").html("<button>"+questionsArr[questionCounter].choices.b+"</button")
-    $("#optionC").html("<button>"+questionsArr[questionCounter].choices.c+"</button")
-    $("#optionD").html("<button>"+questionsArr[questionCounter].choices.d+"</button")
+    btnA.text(questionsArr[questionCounter].choices.a);
+    btnA.attr("value", questionsArr[questionCounter].choices.a);
+    $("#optionA").append(btnA);
+
+    btnB.text(questionsArr[questionCounter].choices.b);
+    btnB.attr("value", questionsArr[questionCounter].choices.b);
+    $("#optionB").append(btnB);
+
+    btnC.text(questionsArr[questionCounter].choices.c);
+    btnC.attr("value", questionsArr[questionCounter].choices.c);
+    $("#optionC").append(btnC);
+
+    btnD.text(questionsArr[questionCounter].choices.d);
+    btnD.attr("value", questionsArr[questionCounter].choices.d);
+    $("#optionD").append(btnD);
     }
 
 //function that changes the settings for the next question to be presented
@@ -70,9 +81,37 @@ var subtractTime = function() {
 }
 
 
-//function that checks answer---see tutor notes
-var checkAnswer = function(event) {
-    
+//functions that check answers
+var checkA = function(){
+    if (event.target.value === questionsArr[questionCounter].correctChoice) {
+        console.log("Correct");
+    } else {
+        console.log("Incorrect");
+    }
+}
+
+var checkB = function(){
+    if (event.target.value === questionsArr[questionCounter].correctChoice) {
+        console.log("Correct");
+    } else {
+        console.log("Incorrect");
+    }
+}
+
+var checkC = function(){
+    if (event.target.value === questionsArr[questionCounter].correctChoice) {
+        console.log("Correct");
+    } else {
+        console.log("Incorrect");
+    }
+}
+
+var checkD = function(){
+    if (event.target.value === questionsArr[questionCounter].correctChoice) {
+        console.log("Correct");
+    } else {
+        console.log("Incorrect");
+    }
 }
 
 //function that ends the game and shows your score. called when all 5 questions are answered or time left = 0.
@@ -99,7 +138,7 @@ var questionsArr = [
             c: "Gregg Allman",
             d: "Berry Oakley"
         },
-        correctChoice: "a"
+        correctChoice: "Duane Allman"
     },
     {
         questionText: "For what reasons has guitarist Dickey Betts been placed under arrest?",
@@ -109,7 +148,7 @@ var questionsArr = [
             c: "Shooting and eating a cow that wasn't his",
             d: "All of the above"
         },
-        correctChoice: "d"
+        correctChoice: "All of the above"
     },
     {
         questionText: "At what age was slide guitarist Duane Allman killed in a motorcycle accident?",
@@ -119,7 +158,7 @@ var questionsArr = [
             c: "24",
             d: "31",
         },
-        correctChoice: "c"
+        correctChoice: "24"
     },
     {
         questionText: "How did vocalist and organist Gregg Allman avoid being drafted into the military during the Vietnam War?",
@@ -129,7 +168,7 @@ var questionsArr = [
             c: "He married Cher",
             d: "Temporarily moved to Mexico City"
         },
-        correctChoice: "b"
+        correctChoice: "Shot himself in the foot"
     },
     {
         questionText: "At what age was bassist Berry Oakley killed in a motorcycle accident?",
@@ -139,7 +178,7 @@ var questionsArr = [
             c: "27",
             d: "He is still alive"
         },
-        correctChoice: "b"
+        correctChoice: "24"
     }
 ]
 
@@ -150,12 +189,49 @@ var questionsArr = [
 $("#end").hide();
 $("#nxtBtn").hide();
 
+var btnA = $("<button>");
+var btnB = $("<button>");
+var btnC = $("<button>");
+var btnD = $("<button>");
 
 //EVENT LISTENERS
 //======================================================================================================================================================================
+//call startQuiz when "Begin Quiz" button is clicked
 $("#btn").on("click", startQuiz)
+//call the nextQuestion function when the "Next Question" button is clicked
 $("#nxtBtn").on("click", nextQuestion)
 
+//evaluate user's selected answer when option "a" is clicked
+$(btnA).on("click", function(event){
+    console.log("option A was clicked")
+    console.log(event.target.value)
+    console.log(questionsArr[questionCounter].correctChoice)
+    checkA();
+});
+
+//evaluate user's selected answer when option "a" is clicked
+$(btnB).on("click", function(event){
+    console.log("option B was clicked")
+    console.log(event.target.value)
+    console.log(questionsArr[questionCounter].correctChoice)
+    checkB();
+})
+
+//evaluate user's selected answer when option "a" is clicked
+$(btnC).on("click", function(event){
+    console.log("option C was clicked")
+    console.log(event.target.value)
+    console.log(questionsArr[questionCounter].correctChoice)
+    checkC();
+})
+
+//evaluate user's selected answer when option "a" is clicked
+$(btnD).on("click", function(event){
+    console.log("option D was clicked")
+    console.log(event.target.value)
+    console.log(questionsArr[questionCounter].correctChoice)
+    checkD();
+})
 
 
 
