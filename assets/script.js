@@ -206,20 +206,68 @@ var endQuiz = function() {
     submitScore.attr("class", "btn btn-dark")
 }
 
-//function that saves score to local storage
-var saveScore = function(){
-    //store user's input into the initials variable
+//function that gets scores from local storage and adds them to highScoresArr
+var getPrevScores = function(){
+        //take strings from local storage and make them into and object
+        var prevScores = JSON.parse(localStorage.getItem("score"));
+        //add object to array
+        highScoresArr.push(prevScores)
+        console.log(highScoresArr)
+}
+
+//function to add latest score to object=============================================>WORKS
+var newScoreToObj = function() {
+    //store user's input (initials) into the initials variable
     initials = document.getElementById("initials").value
     //add score and initials into an object
-    userScore.score = score;
-    userScore.initials = initials;
-    //get existing data from local storage and add it to the highScoresArr array
-    
-    //add new score (in userScore) to highScoresArr
+    newScoreObj.score = score;
+    newScoreObj.initials = initials;
+}
 
-    //save each score from highScoresArr to to local storage
-    localStorage.setItem("initials", initials)
-    localStorage.setItem("score", score)
+//function to add latest score object to highScoresArr=============================================>WORKS
+var newScoreToArr = function() {
+    highScoresArr.push(newScoreObj)
+}
+
+//function that saves each score from highScoresArr to local storage==================================>Need to take setItem our of loop. add the entire array to the local storage
+var arrToStorage = function(){
+    for (var i = 0; i < highScoresArr.length; i++) {
+        var scoreObjAsString = JSON.stringify(highScoresArr[i]);
+        localStorage.setItem("score", scoreObjAsString)
+    }
+}
+
+//function that saves score to local storage
+var saveScore = function(){
+    newScoreToObj();
+    newScoreToArr();
+    getPrevScores();
+    arrToStorage();
+    
+
+    
+    
+    
+    
+    
+    
+    
+    
+
+    // console.log(userScore)
+    // //add new score (in userScore) to highScoresArr
+    // highScoresArr.push(userScore)
+    // console.log(highScoresArr)
+    
+    
+    
+    
+    // //save each score from highScoresArr to local storage
+
+
+    
+    
+
     //clear elements once score is submitted and ask if user wants to take the quiz again
     $("#end").empty();
     $("#end").html("<h1>Your score has been submitted.<br>Would you Like to take the Quiz Again?</h1>");
@@ -240,8 +288,11 @@ var score = 0;
 //varable for user's initials
 var initials = ""
 
+//variable to store items retrieved from local storage
+
+
 //object that holds highScore
-var userScore = {}
+var newScoreObj = {}
 
 //array that holds high score objects
 var highScoresArr= []
