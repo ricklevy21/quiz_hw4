@@ -48,29 +48,37 @@ var displayQuestion = function() {
     btnA.attr("value", questionsArr[questionCounter].choices.a);
     btnA.attr("class", "btn btn-primary");
     $("#optionA").append(btnA);
-
+    
     btnB.text(questionsArr[questionCounter].choices.b);
     btnB.attr("value", questionsArr[questionCounter].choices.b);
     btnB.attr("class", "btn btn-primary");
     $("#optionB").append(btnB);
-
+    
     btnC.text(questionsArr[questionCounter].choices.c);
     btnC.attr("value", questionsArr[questionCounter].choices.c);
     btnC.attr("class", "btn btn-primary");
     $("#optionC").append(btnC);
-
+    
     btnD.text(questionsArr[questionCounter].choices.d);
     btnD.attr("value", questionsArr[questionCounter].choices.d);
     btnD.attr("class", "btn btn-primary");
     $("#optionD").append(btnD);
-    }
+    
+}
 
 //function that changes the settings for the next question to be presented =====================> WORKING
 var nextQuestion = function(){
     //go to the next question in the array
     questionCounter++;
+    console.log(questionCounter)
+    //end quiz once last question is submitted
+    if (questionCounter === questionsArr.length){
+        endQuiz()
+    //otherwise keep the questions coming
+    } else {
     displayQuestion()
     enableBtns();
+    }
 }
 
 //function that evaluates if a user's answer is correct or incorrect====================================>WORKING
@@ -162,6 +170,10 @@ var enableBtns = function() {
     btnD.prop("disabled",false);
 }
 
+//function that disables the next question button
+var disableNxtBtn = function() {
+    nxtBtn.prop("disabled",true);
+
 
 
 //function that displays the score as the quiz is ongoing
@@ -169,7 +181,7 @@ var ongoingScore = function() {
     $("#score").html("<h4>Current Score "+score+"</h4>")
 };
 
-//function that ends the game and shows your score. called when all 5 questions are answered or time left = 0.==================================> TO DO
+//function that ends the game and shows your score. called when all questions are answered or time left = 0.==================================> TO DO
 //allows user to enter 3 initials and save score to local storage...high scores are on another html page
 var endQuiz = function() {
     //calculate final score- takes into account time left and correct answers given
@@ -206,72 +218,36 @@ var endQuiz = function() {
     submitScore.attr("class", "btn btn-dark")
 }
 
-//function that gets scores from local storage and adds them to highScoresArr
-var getPrevScores = function(){
-        //take strings from local storage and make them into and object
-        var prevScores = JSON.parse(localStorage.getItem("score"));
-        //add object to array
-        highScoresArr.push(prevScores)
-        console.log(highScoresArr)
+//get high scores from local storage and put them in an array called highScores
+var highScores = JSON.parse(localStorage.getItem("highScores")) || [];
+
+//function that brings user to the home page
+var homePage = function(){
+    window.location.assign("quiz.html")
 }
 
-//function to add latest score to object=============================================>WORKS
-var newScoreToObj = function() {
-    //store user's input (initials) into the initials variable
-    initials = document.getElementById("initials").value
-    //add score and initials into an object
-    newScoreObj.score = score;
-    newScoreObj.initials = initials;
-}
-
-//function to add latest score object to highScoresArr=============================================>WORKS
-var newScoreToArr = function() {
-    highScoresArr.push(newScoreObj)
-}
-
-//function that saves each score from highScoresArr to local storage==================================>Need to take setItem our of loop. add the entire array to the local storage
-var arrToStorage = function(){
-    for (var i = 0; i < highScoresArr.length; i++) {
-        var scoreObjAsString = JSON.stringify(highScoresArr[i]);
-        localStorage.setItem("score", scoreObjAsString)
-    }
+//function that brings user to the high scores page
+var scoresPage = function(){
+    window.location.assign("scores.html")
 }
 
 //function that saves score to local storage
 var saveScore = function(){
-    newScoreToObj();
-    newScoreToArr();
-    getPrevScores();
-    arrToStorage();
-    
+    event.preventDefault();
+    //assign user's text input into initials variable
+    initials = document.getElementById("initials").value
+    //create object the new score will go into
+    var newScoreObj = {
+        "score": score,
+        "name": initials
+    }
+    //add newScoreObject to highScores array
+    highScores.push(newScoreObj)
+    console.log(highScores)
 
+    localStorage.setItem("highScores", JSON.stringify(highScores));
     
-    
-    
-    
-    
-    
-    
-    
-
-    // console.log(userScore)
-    // //add new score (in userScore) to highScoresArr
-    // highScoresArr.push(userScore)
-    // console.log(highScoresArr)
-    
-    
-    
-    
-    // //save each score from highScoresArr to local storage
-
-
-    
-    
-
-    //clear elements once score is submitted and ask if user wants to take the quiz again
-    $("#end").empty();
-    $("#end").html("<h1>Your score has been submitted.<br>Would you Like to take the Quiz Again?</h1>");
-    $("#submitBtn").hide();
+    homePage();
 }
 //variables
 //========================================================================================================================================================================
@@ -280,22 +256,12 @@ var saveScore = function(){
 var questionCounter = 0;
 
 //variabe for the amount of time the quiz starts out with
-var counter = 15;
+var counter = 60;
 
 //variable for the user's score
 var score = 0;
 
-//varable for user's initials
-var initials = ""
-
-//variable to store items retrieved from local storage
-
-
-//object that holds highScore
-var newScoreObj = {}
-
-//array that holds high score objects
-var highScoresArr= []
+var initials = "";
 
 //an array of objects that store question information
 var questionsArr = [
@@ -364,10 +330,14 @@ var btnB = $("<button>");
 var btnC = $("<button>");
 var btnD = $("<button>");
 
+var nxtBtn = $("<button>");
+
 var endLabel = $("<label>");
 var lineBreak = $("<br>")
 var endInput = $("<input>");
 var submitScore = $("<button>");
+
+
 
 //EVENT LISTENERS
 //======================================================================================================================================================================
@@ -416,3 +386,67 @@ $(btnD).on("click", function(event){
 
 //EXPERIMENTAL LAND
 //=======================================================================================================================================================================
+
+// newScoreToObj();
+// newScoreToArr();
+// getPrevScores();
+// arrStringify();
+// goToStorage();
+
+
+
+
+
+
+
+
+// //function that gets scores from local storage and adds them to highScoresArr
+// var getPrevScores = function(){
+//         //take strings from local storage and make them into and object
+//         var prevScores = JSON.parse(localStorage.getItem("score"));
+//         //add object to array
+//         if (prevScores !== null){
+//             highScoresArr.push(prevScores)
+//         }
+//         console.log(highScoresArr)
+// }
+
+// //function to add latest score to object=============================================>WORKS
+// var newScoreToObj = function() {
+//     //store user's input (initials) into the initials variable
+//     initials = document.getElementById("initials").value
+//     //add score and initials into an object
+//     newScoreObj.score = score;
+//     newScoreObj.initials = initials;
+// }
+
+// //function to add latest score object to highScoresArr=============================================>WORKS
+// var newScoreToArr = function() {
+//     highScoresArr.push(newScoreObj)
+// }
+
+// //function that stringifies each object in highScoresArr and adds it to the array arrForStorage==================================>WORKS
+// var arrStringify = function(){
+//     for (var i = 0; i < highScoresArr.length; i++) {
+//         var scoreObjAsString = JSON.stringify(highScoresArr[i]);
+//         arrForStorage.push(scoreObjAsString)
+//     }
+//     arrForStorage = JSON.stringify(arrForStorage)
+// }
+
+// //function that adds arrForStorage to local storage
+// var goToStorage = function() {
+//     localStorage.setItem("scores", arrForStorage)
+// }
+
+//To Do
+//=======================================================================================================================================================================
+/*
+Make scores.html page and have high scores render to page
+make link to scores.html and place on quiz.html (hide when quiz begins/show when ends)
+disable next question button before answer is selected. once once is selected, enable the button
+change text in next question button on last question to be "Finish Quiz"
+
+
+
+*/
