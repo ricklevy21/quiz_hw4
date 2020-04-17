@@ -1,5 +1,7 @@
 //FUNCTIONS
 //========================================================================================================================================================================
+
+
 //function that creates, sets, and starts the timer when called==========> WORKING
 var setTimer = function() {
     //uses the wondow set interval method to create an interval
@@ -28,6 +30,8 @@ var startQuiz = function (){
     //hide the intro text
     $("#text").hide();
     //hide the "Begin Quiz" button
+    $("#highScores").hide();
+    //hide the "High Scores" button
     $("#btn").hide();
     //show the "Next Question" button
     nxtBtn.show();
@@ -258,15 +262,7 @@ var endQuiz = function() {
 //get high scores from local storage and put them in an array called highScores
 var highScores = JSON.parse(localStorage.getItem("highScores")) || [];
 
-//function that brings user to the home page
-var homePage = function(){
-    window.location.assign("quiz.html")
-}
 
-//function that brings user to the high scores page
-var scoresPage = function(){
-    window.location.assign("scores.html")
-}
 
 //function that saves score to local storage
 var saveScore = function(){
@@ -281,18 +277,34 @@ var saveScore = function(){
     //add newScoreObject to highScores array
     highScores.push(newScoreObj)
     console.log(highScores)
-
     localStorage.setItem("highScores", JSON.stringify(highScores));
-    
-    homePage();
+    goToHomePage();
 }
+
+//function that brings user to the home page
+var goToHomePage = function(){
+    window.location.assign("quiz.html")
+}
+
+//function that brings user to the high scores page
+var goToScoresPage = function(){
+    window.location.assign("scores.html")
+}
+
+//function that renders the high scores page
+var highScoresPage = function(){
+    mainBtn.text("Back to Main Page");
+    mainBtn.attr("class", "btn btn-dark");
+    $("#homeBtn").append(mainBtn); 
+}
+
+
+
 //variables
 //========================================================================================================================================================================
 
 //variable for which question is being displayed
 var questionCounter = 0;
-
-
 
 //variable for the user's score
 var score = 0;
@@ -356,10 +368,8 @@ var questionsArr = [
 //variabe for the amount of time the quiz starts out with. made this way so you get 0 if all answers are wrong
 var counter = questionsArr.length *10;
 
-//STARTING PAGE CONTENT
+//STARTING PAGE CONTENT/BUTTONS
 //======================================================================================================================================================================
-
-
 
 var btnA = $("<button>");
 var btnB = $("<button>");
@@ -373,6 +383,9 @@ var lineBreak = $("<br>")
 var endInput = $("<input>");
 var submitScore = $("<button>");
 
+//button that sends user to main page
+var mainBtn = $("<button>");
+
 //hide the end page text
 $("#end").hide();
 nxtBtn.hide();
@@ -380,50 +393,42 @@ nxtBtn.hide();
 //EVENT LISTENERS
 //======================================================================================================================================================================
 //call startQuiz when "Begin Quiz" button is clicked
-$("#btn").on("click", startQuiz)
+$("#btn").on("click", startQuiz);
+//call goToScoresPage when "High Scores Button" is clicked
+$("#highScores").on("click", goToScoresPage);
 //call the nextQuestion function when the "Next Question" button is clicked
-nxtBtn.on("click", nextQuestion)
+nxtBtn.on("click", nextQuestion);
 //submit user's final score to local storage
-submitScore.on("click", saveScore)
+submitScore.on("click", saveScore);
+//return user to main page
+mainBtn.on("click", goToHomePage);
 
 //evaluate user's selected answer when option "a" is clicked
 $(btnA).on("click", function(event){
-    console.log("option A was clicked")
-    console.log(event.target.value)
-    console.log(questionsArr[questionCounter].correctChoice)
     enableNxtBtn();
     checkA();
 });
 
 //evaluate user's selected answer when option "a" is clicked
 $(btnB).on("click", function(event){
-    console.log("option B was clicked")
-    console.log(event.target.value)
-    console.log(questionsArr[questionCounter].correctChoice)
     enableNxtBtn();
     checkB();
 })
 
 //evaluate user's selected answer when option "a" is clicked
 $(btnC).on("click", function(event){
-    console.log("option C was clicked")
-    console.log(event.target.value)
-    console.log(questionsArr[questionCounter].correctChoice)
     enableNxtBtn();
     checkC();
 })
 
 //evaluate user's selected answer when option "a" is clicked
 $(btnD).on("click", function(event){
-    console.log("option D was clicked")
-    console.log(event.target.value)
-    console.log(questionsArr[questionCounter].correctChoice)
     enableNxtBtn();
     checkD();
 })
 
 
-
+highScoresPage();
 
 
 //EXPERIMENTAL LAND
