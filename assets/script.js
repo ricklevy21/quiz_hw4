@@ -172,7 +172,13 @@ var ongoingScore = function() {
 //function that ends the game and shows your score. called when all 5 questions are answered or time left = 0.==================================> TO DO
 //allows user to enter 3 initials and save score to local storage...high scores are on another html page
 var endQuiz = function() {
-    //calculate final score
+    //calculate final score- takes into account time left and correct answers given
+    //avoid negative score due to incorrect questions reducing time below zero
+    if (counter < 0){
+        counter = 0
+    } else{
+        counter = counter
+    }
     score = score + counter;
     //hide all current elements
     $("#nxtBtn").hide();
@@ -187,12 +193,37 @@ var endQuiz = function() {
     //show information in end of quiz element
     $("#end").show();
     $("#end").append("<h3> FINAL SCORE: "+score+"</h3>");
-    endLabel.append("<label>ENTER YOUR INITIALS: </label>")
+    $("#end").append(endLabel);
+    $("#end").append(lineBreak);
+    $("#end").append(endInput);
+    $("#submitBtn").append(submitScore);
+    endLabel.text("ENTER YOUR INITIALS HERE:")
     endLabel.attr("for", "initials")
-    endInput.append("<input/>")
     endInput.attr("id", "initials")
     endInput.attr("type", "text")
-    endInput.attr("max", "3")//==========================================NOT WORKING
+    endInput.attr("maxLength", "3")
+    submitScore.text("Submit")
+    submitScore.attr("class", "btn btn-dark")
+}
+
+//function that saves score to local storage
+var saveScore = function(){
+    //store user's input into the initials variable
+    initials = document.getElementById("initials").value
+    //add score and initials into an object
+    userScore.score = score;
+    userScore.initials = initials;
+    //get existing data from local storage and add it to the highScoresArr array
+    
+    //add new score (in userScore) to highScoresArr
+
+    //save each score from highScoresArr to to local storage
+    localStorage.setItem("initials", initials)
+    localStorage.setItem("score", score)
+    //clear elements once score is submitted and ask if user wants to take the quiz again
+    $("#end").empty();
+    $("#end").html("<h1>Your score has been submitted.<br>Would you Like to take the Quiz Again?</h1>");
+    $("#submitBtn").hide();
 }
 //variables
 //========================================================================================================================================================================
@@ -201,10 +232,19 @@ var endQuiz = function() {
 var questionCounter = 0;
 
 //variabe for the amount of time the quiz starts out with
-var counter = 60;
+var counter = 15;
 
 //variable for the user's score
 var score = 0;
+
+//varable for user's initials
+var initials = ""
+
+//object that holds highScore
+var userScore = {}
+
+//array that holds high score objects
+var highScoresArr= []
 
 //an array of objects that store question information
 var questionsArr = [
@@ -273,8 +313,10 @@ var btnB = $("<button>");
 var btnC = $("<button>");
 var btnD = $("<button>");
 
-var endLabel = $("#end");
-var endInput = $("#end");
+var endLabel = $("<label>");
+var lineBreak = $("<br>")
+var endInput = $("<input>");
+var submitScore = $("<button>");
 
 //EVENT LISTENERS
 //======================================================================================================================================================================
@@ -282,6 +324,8 @@ var endInput = $("#end");
 $("#btn").on("click", startQuiz)
 //call the nextQuestion function when the "Next Question" button is clicked
 $("#nxtBtn").on("click", nextQuestion)
+//submit user's final score to local storage
+submitScore.on("click", saveScore)
 
 //evaluate user's selected answer when option "a" is clicked
 $(btnA).on("click", function(event){
