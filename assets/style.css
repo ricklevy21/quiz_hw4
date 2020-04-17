@@ -2,28 +2,13 @@
     margin-top: 100px;
 }
 
-.row {
-        height: 250px;
-
+.underFive {
+    color: red;
 }
-
 #text {
     background-color: yellow;
 }
 
-#choiceA {
+#end {
     background-color: green;
-}
-#choiceB {
-    background-color: skyblue;
-}
-#choiceC {
-    background-color: fuchsia;
-}
-#choiceD {
-    background-color: lightcyan;
-}
-
-#btnCol {
-    background-color: red;    
 }

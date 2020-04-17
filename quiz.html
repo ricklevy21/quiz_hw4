@@ -19,38 +19,25 @@
     <!--the timer will be diplayed within the header of the document-->
     <nav class="navbar navbar-light container">
         <span class="navbar-brand mb-0 h1">The Ultimate Allman Brothers Band Quiz</span>
-        <div id="timer">Time Left: </div>
+        <div id="timer"></div>
       </nav>
 
     <!--the main contents of the document will be displayed in the main element of the document-->
     <main class="container">
         <!--the main dialog text will be displayed in this section-->
-        <section class="row">
-            <article class="col-md-12 ">
-                <div class="main-text" id="text"></div>
-            </article>
-        </section>
-        
-        <section class="row">
-            <article class="col-md-3" id="choiceA">
-                 
-            </article>
-            <article class="col-md-3" id="choiceB">
-               
-            </article>
-            <article class="col-md-3" id="choiceC">
-               
-            </article>
-            <article class="col-md-3" id="choiceD">
-                
-            </article>
-        </section>
-
-        <section class="row">
-            <article class="col-md-12">
-                <div id="btn"></div>
-            </article>
-        </section>
+        <div id="text"><h1>Think you know a lot about the Allman Brothers Band?<br>Take this quiz for the ultimate challenge!</h1></div>
+        <!--the end of quiz information will be displayed in this section-->
+        <div id="end"><h1>The quiz has ended</h1></div>
+        <!--Section for Question-->
+        <div id="question"></div>
+        <!--Section for Begin Quiz Button-->
+        <div>
+            <div id="btn"><button>Begin Quiz</button></div>
+        </div>
+        <!--Section for Next Question Button-->
+        <div>
+            <div id="nxtBtn"><button>Next Question</button></div>
+        </div>
 
     </main>
     <script src="./assets/quiz.js"></script>
