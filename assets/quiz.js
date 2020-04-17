@@ -40,11 +40,15 @@ var startQuiz = function (){
 
 //function that renders the questions and the multiple choice options to the page
 var displayQuestion = function() {
+    console.log(questionsArr[questionCounter].questionText)
+    $("#question").html("<h1>"+questionsArr[questionCounter].questionText+"</h1>")
+
 
 }
 
-//function that changes the settings for the next question to be presented=====================needs work
+//function that changes the settings for the next question to be presented
 var nextQuestion = function(){
+    questionCounter++;
     displayQuestion()    
 }
 
@@ -62,7 +66,7 @@ var subtractTime = function() {
 }
 
 
-//function that checks answer
+//function that checks answer---see tutor notes
 var checkAnswer = function(event) {
     
 }
@@ -75,11 +79,14 @@ var endQuiz = function() {
 //variables
 //========================================================================================================================================================================
 
+//variable for which question is being displayed
+var questionCounter = 0;
+
 //variabe for the amount of time the quiz starts out with
 var counter = 60;
 
-//an array of objects thats store question information
-var choicesArr = [
+//an array of objects that store question information
+var questionsArr = [
     {
         questionText: "Which band member started off as a session guitarist at the Muscle Shoals Recording Studio, playing with the likes of Wilson Pickett and Aretha Franklin?",
         choices: {
@@ -160,7 +167,6 @@ $("#nxtBtn").on("click", nextQuestion)
 //I DONT THINK THIS WORKS THE WAY I NEED IT TO
 //a way to access the properties from within an object via a for loop
 // for (var i = 0; i < choicesArr.length; i++) {
-//     console.log(choicesArr[i].questionNumber)
 //     console.log(choicesArr[i].questionText)
 //     console.log(choicesArr[i].correctChoice)
 //     console.log(choicesArr[i].choice.a)
