@@ -1,7 +1,8 @@
+//SCRIPTS FOR HOMEWORK #4: CREATE A QUIZ
+//==============================================================================================================================================================
+
 //FUNCTIONS
 //========================================================================================================================================================================
-
-
 //function that creates, sets, and starts the timer when called==========> WORKING
 var setTimer = function() {
     //uses the wondow set interval method to create an interval
@@ -222,7 +223,7 @@ var ongoingScore = function() {
     $("#score").html("<h4>Current Score "+score+"</h4>")
 };
 
-//function that ends the game and shows your score. called when all questions are answered or time left = 0.==================================> TO DO
+//function that ends the game and shows your score. called when all questions are answered or time left = 0.==================================> WORKING
 //allows user to enter 3 initials and save score to local storage...high scores are on another html page
 var endQuiz = function() {
     //calculate final score- takes into account time left and correct answers given
@@ -259,12 +260,12 @@ var endQuiz = function() {
     submitScore.attr("class", "btn btn-dark")
 }
 
-//get high scores from local storage and put them in an array called highScores
+//get high scores from local storage and put them in an array called highScores=====================================> WORKING
 var highScores = JSON.parse(localStorage.getItem("highScores")) || [];
 
 
 
-//function that saves score to local storage
+//function that saves score to local storage=====================================> WORKING
 var saveScore = function(){
     event.preventDefault();
     //assign user's text input into initials variable
@@ -278,29 +279,42 @@ var saveScore = function(){
     highScores.push(newScoreObj)
     console.log(highScores)
     localStorage.setItem("highScores", JSON.stringify(highScores));
-    goToHomePage();
+    goToScoresPage();
 }
 
-//function that brings user to the home page
+//function that brings user to the home page=====================================> WORKING
 var goToHomePage = function(){
     window.location.assign("quiz.html")
 }
 
-//function that brings user to the high scores page
+//function that brings user to the high scores page===============================> WORKING
 var goToScoresPage = function(){
     window.location.assign("scores.html")
 }
 
-//function that renders the high scores page
+//function that renders the high scores page=======================================> WORKING
 var highScoresPage = function(){
     mainBtn.text("Back to Main Page");
     mainBtn.attr("class", "btn btn-dark");
-    $("#homeBtn").append(mainBtn); 
+    $("#homeBtn").append(mainBtn);
+    getScoresFromLocal();
+    printHighScores();
 }
 
+//function that gets high scores from local storage===================================> WORKING
+var getScoresFromLocal = function(){
+    scoresFromLocal = localStorage.getItem("highScores");
+    scoresFromLocal = JSON.parse(scoresFromLocal);
+}
 
+//function that prints highscores to the page========================================> WORKING
+var printHighScores = function(){
+    for (var i = 0; i < scoresFromLocal.length; i++){
+        $("#highScoresList").append("<h4>"+scoresFromLocal[i].name +": "+ scoresFromLocal[i].score+"</h4>")
+    }
+}
 
-//variables
+//GLOBAL VARIABLES
 //========================================================================================================================================================================
 
 //variable for which question is being displayed
@@ -367,6 +381,9 @@ var questionsArr = [
 
 //variabe for the amount of time the quiz starts out with. made this way so you get 0 if all answers are wrong
 var counter = questionsArr.length *10;
+
+//variable for array of scores coming in from local storage
+var scoresFromLocal =[]
 
 //STARTING PAGE CONTENT/BUTTONS
 //======================================================================================================================================================================
@@ -438,7 +455,7 @@ highScoresPage();
 //To Do
 //=======================================================================================================================================================================
 /*
-Make scores.html page and have high scores render to page
-make link to scores.html and place on quiz.html (hide when quiz begins/show when ends)
+optional: make it so you must enter initials OR add a main page button at end of quiz
+add some images and maybe styling such as font, background, etc
 
 */
