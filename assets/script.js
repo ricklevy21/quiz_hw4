@@ -303,7 +303,9 @@ var highScoresPage = function(){
 //function that gets high scores from local storage===================================> WORKING
 var getScoresFromLocal = function(){
     scoresFromLocal = localStorage.getItem("highScores");
-    scoresFromLocal = JSON.parse(scoresFromLocal);
+    scoresFromLocal = JSON.parse(scoresFromLocal);\
+    //sort scores from high to low
+    scoresFromLocal.sort(function(a,b){return b.score-a.score});
 }
 
 //function that prints highscores to the page========================================> WORKING
