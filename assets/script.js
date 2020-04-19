@@ -281,7 +281,7 @@ var saveScore = function(){
 
 //function that brings user to the home page=====================================> WORKING
 var goToHomePage = function(){
-    window.location.assign("quiz.html")
+    window.location.assign("index.html")
 }
 
 //function that brings user to the high scores page===============================> WORKING
