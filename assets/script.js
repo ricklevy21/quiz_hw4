@@ -281,12 +281,12 @@ var saveScore = function(){
 
 //function that brings user to the home page=====================================> WORKING
 var goToHomePage = function(){
-    window.location.assign("index.html")
+    window.location.assign("../index.html")
 }
 
 //function that brings user to the high scores page===============================> WORKING
 var goToScoresPage = function(){
-     window.location.assign("scores.html");
+     window.location.assign("./assets/scores.html");
 }
 
 //function that renders the high scores page=======================================> WORKING
