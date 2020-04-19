@@ -12,7 +12,7 @@ var setTimer = function() {
         //display the time left on the page
         $('#timer').html("<h4>Seconds Left:  "+counter+"</h4>");
         //when the timer reaches 0, end the quiz and clear the interval
-        if (counter <= 0) {
+        if (counter <= 0 && !quizOver) {
                  clearInterval(interval);
                  endQuiz()
             return;
@@ -27,7 +27,6 @@ var setTimer = function() {
 //function that begins the quiz. Called once the "Begin Quiz" button is clicked=========> WORKING
 var startQuiz = function (){
     //test if the button worked
-    console.log("Start quiz button works")
     //hide the intro text
     $("#text").hide();
     //hide the "Begin Quiz" button
@@ -111,6 +110,7 @@ var nextQuestion = function(){
     questionCounter++;
     //end quiz once last question is submitted
     if (questionCounter === questionsArr.length){
+        quizOver = true;
         endQuiz()
     //otherwise keep the questions coming
     } else {
@@ -123,11 +123,9 @@ var nextQuestion = function(){
 var corrIncorr = function() {
     //correct answer adds 1 point to the user's score
     if (event.target.value === questionsArr[questionCounter].correctChoice) {
-        console.log("Correct");
         score = score +1
     //incorrect answer reduces time left by 10 seconds
     } else {
-        console.log("Incorrect");
         counter = counter -10;
     }
     //change button colors to reveal correct/incorrect answers
@@ -260,6 +258,7 @@ var endQuiz = function() {
     submitScore.attr("class", "btn btn-dark")
 }
 
+
 //get high scores from local storage and put them in an array called highScores=====================================> WORKING
 var highScores = JSON.parse(localStorage.getItem("highScores")) || [];
 
@@ -276,7 +275,6 @@ var saveScore = function(){
     }
     //add newScoreObject to highScores array
     highScores.push(newScoreObj)
-    console.log(highScores)
     localStorage.setItem("highScores", JSON.stringify(highScores));
     goToScoresPage();
 }
@@ -288,7 +286,7 @@ var goToHomePage = function(){
 
 //function that brings user to the high scores page===============================> WORKING
 var goToScoresPage = function(){
-    window.location.assign("scores.html")
+     window.location.assign("scores.html");
 }
 
 //function that renders the high scores page=======================================> WORKING
@@ -298,21 +296,46 @@ var highScoresPage = function(){
     $("#homeBtn").append(mainBtn);
     getScoresFromLocal();
     printHighScores();
+    animateBackground();
 }
 
 //function that gets high scores from local storage===================================> WORKING
 var getScoresFromLocal = function(){
     scoresFromLocal = localStorage.getItem("highScores");
-    scoresFromLocal = JSON.parse(scoresFromLocal);\
+    scoresFromLocal = JSON.parse(scoresFromLocal);
     //sort scores from high to low
-    scoresFromLocal.sort(function(a,b){return b.score-a.score});
+if (scoresFromLocal !== null){
+            scoresFromLocal.sort(function(a,b){return b.score-a.score});
+    }
 }
 
 //function that prints highscores to the page========================================> WORKING
 var printHighScores = function(){
+    if (scoresFromLocal !== null){
     for (var i = 0; i < scoresFromLocal.length; i++){
         $("#highScoresList").append("<h4>"+scoresFromLocal[i].name +": "+ scoresFromLocal[i].score+"</h4>")
+        }
     }
+};
+
+//function that animates background color on high scores page
+var animateBackground = function(){
+    var i = 0;
+    function change() {
+        var doc = document.getElementById("mushroom");
+        var color = ["violet", "indigo", "blue", "green","yellow","orange","red"];
+        doc.style.borderColor = color[i];
+        i = (i + 1) % color.length;
+        var doc = document.getElementById("background");
+        var color = ["red", "orange", "yellow", "green","blue","indigo","violet"];
+        doc.style.backgroundColor = color[i];
+        i = (i + 1) % color.length;
+        var doc = document.getElementById("highScoresList");
+        var color = ["violet", "indigo", "blue", "green","yellow","orange","red"];
+        doc.style.color = color[i];
+        i = (i + 1) % color.length;
+    }
+    setInterval(change, 80);
 }
 
 //GLOBAL VARIABLES
@@ -386,6 +409,9 @@ var counter = questionsArr.length *10;
 //variable for array of scores coming in from local storage
 var scoresFromLocal =[]
 
+//boolean variable if quiz is over
+var quizOver;
+
 //PAGE CONTENT/BUTTONS
 //======================================================================================================================================================================
 
@@ -452,19 +478,9 @@ $(btnD).on("click", function(event){
     checkD();
 })
 
-
-
-
-
-//EXPERIMENTAL LAND
-//=======================================================================================================================================================================
-
-
 //To Do
 //=======================================================================================================================================================================
 /*
-optional: make it so you must enter initials OR add a main page button at end of quiz
-add some images and maybe styling such as font, background, etc
-order high scores from high to low
-fix whatever is making the score print twice (something to do with timeout and answering all questions)
+optional: make it so you must enter initials OR add a main page button at end of quiz--not enough time to fiuure out the validation for this
+I cant seem to figure out a way to only render the high scores page once a lin to that page has been clicked- causing error in console on main page due to animation. Not really a problem...but not perfection
 */

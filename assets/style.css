@@ -25,5 +25,11 @@ body {
 
 #highScoresList {
     font-family: 'Press Start 2P', cursive;
+    color: navy;
+}
+
+#mushroom {
+    border: steelblue solid 7px;
+    max-width: 100%;
 }
 
