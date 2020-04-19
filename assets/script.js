@@ -264,7 +264,6 @@ var endQuiz = function() {
 var highScores = JSON.parse(localStorage.getItem("highScores")) || [];
 
 
-
 //function that saves score to local storage=====================================> WORKING
 var saveScore = function(){
     event.preventDefault();
@@ -385,16 +384,19 @@ var counter = questionsArr.length *10;
 //variable for array of scores coming in from local storage
 var scoresFromLocal =[]
 
-//STARTING PAGE CONTENT/BUTTONS
+//PAGE CONTENT/BUTTONS
 //======================================================================================================================================================================
 
+//variables for answer option buttons
 var btnA = $("<button>");
 var btnB = $("<button>");
 var btnC = $("<button>");
 var btnD = $("<button>");
 
+//variable for nxt question button
 var nxtBtn = $("<button>");
 
+//varables for submit score page
 var endLabel = $("<label>");
 var lineBreak = $("<br>")
 var endInput = $("<input>");
@@ -406,6 +408,10 @@ var mainBtn = $("<button>");
 //hide the end page text
 $("#end").hide();
 nxtBtn.hide();
+
+//render the high scores page
+highScoresPage();
+
 
 //EVENT LISTENERS
 //======================================================================================================================================================================
@@ -445,7 +451,7 @@ $(btnD).on("click", function(event){
 })
 
 
-highScoresPage();
+
 
 
 //EXPERIMENTAL LAND
@@ -457,5 +463,6 @@ highScoresPage();
 /*
 optional: make it so you must enter initials OR add a main page button at end of quiz
 add some images and maybe styling such as font, background, etc
-
+order high scores from high to low
+fix whatever is making the score print twice (something to do with timeout and answering all questions)
 */

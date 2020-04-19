@@ -1,7 +1,29 @@
+main, nav {
+    font-family: 'Concert One', cursive;
+}
+
+button {
+    font-family: 'Roboto', sans-serif;
+}
+
+body {
+    background-image: url(./background.png);    
+    background-position: center center;    
+    background-repeat: no-repeat;    
+    background-attachment: fixed;    
+    background-size: cover;    
+    background-color: #FFDAB9;
+  }
+
 .main-text {
-    margin-top: 100px;
+    margin-top: 60px;
 }
 
 .underFive {
     color: red;
 }
+
+#highScoresList {
+    font-family: 'Press Start 2P', cursive;
+}
+

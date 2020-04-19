@@ -7,6 +7,9 @@
       <!--jQuery-->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 
+    <!--Google Fonts-->
+    <link href="https://fonts.googleapis.com/css2?family=Concert+One&family=Press+Start+2P&family=Roboto:wght@500&display=swap" rel="stylesheet">
+
     <!--Bootstrap CSS-->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
 
@@ -16,32 +19,31 @@
     <title>Allman Brothers Band Quiz</title>
 </head>
 <body>
-    <!--the timer will be diplayed within the header of the document-->
+    <!--NAVBAR --contains site title, high scores button, timer and current score-->
     <nav class="navbar navbar-light container">
         <span class="navbar-brand mb-0 h1">The Ultimate Allman Brothers Band Quiz</span>
         <div id="highScores"><button class="btn btn-info">High Scores</button></div>
         <div id="score"></div>
         <div id="timer"></div>
-
       </nav>
 
-    <!--the main contents of the document will be displayed in the main element of the document-->
+    <!--MAIN CONTENT-->
     <main class="container main-text">
-        <!--the main dialog text will be displayed in this section-->
+        <!--MAIN DIALOG TEXT-->
         <div id="text"><h1>Think you know a lot about the Allman Brothers Band?<br>Take this quiz for the ultimate challenge!</h1></div>
         
         
-        <!--the end of quiz information will be displayed in this section-->
+        <!--END OF QUIZ-->
         <div id="end"><h1>The quiz has ended</h1></div>
         <br>
-        <!--section for end of quiz submit score button-->
+        <!--SUBMIT SCORE BUTTON-->
         <div id="submitBtn"></div>
         
         
-        <!--Section for Question Text-->
+        <!--QUESTION TEXT-->
         <div id="question"></div>
 
-        <!--Section for Question Anwser Options-->
+        <!--ANSWER OPTIONS-->
         <div id="optionA"></div>
         <br>
         <div id="optionB"></div>
@@ -53,13 +55,12 @@
         <br>
         <br>
         <br>
-        <!--Section for Begin Quiz Button-->
+        <!--BEGIN QUIZ BUTTON-->
         <div>
             <div id="btn"><button class="btn btn-dark">Begin Quiz</button></div>
         </div>
         
-        
-        <!--Section for Next Question Button-->
+        <!--NEXT QUESTION BUTTON-->
         <div>
             <div id="nxtBtn"></div>
         </div>
